@@ -1,0 +1,9 @@
+USE RETAIL;
+CREATE VIEW view_recent_orders AS SELECT * FROM ORDERS WHERE ORDERDATE >= CURDATE() - INTERVAL 30 DAY;
+CREATE VIEW view_supplier_products AS SELECT S.SUPNAME, P.PRODNAME, P.PRICE FROM SUPPLIER S JOIN PRODUCT P ON S.SUPID = P.SUPID;
+CREATE VIEW view_customer_order_totals AS SELECT CUSTID, SUM(AMT) AS Total_Amount, COUNT(*) AS Order_Count FROM ORDERS GROUP BY CUSTID;
+CREATE VIEW view_low_stock_products AS SELECT * FROM PRODUCT WHERE STOCK < 10;
+SELECT * FROM view_recent_orders;
+SELECT SUPNAME, PRODNAME FROM view_supplier_products ORDER BY PRICE DESC;
+SELECT * FROM view_customer_order_totals WHERE Total_Amount > 1000;
+SELECT * FROM view_low_stock_products;
